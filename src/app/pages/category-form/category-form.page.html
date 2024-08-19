@@ -1,0 +1,48 @@
+<ion-content>
+  <div class="pd-t-10"></div>
+  <ion-card class="page-card">
+    <ion-card-header class="custom-header">
+      <h2 class="ion-text-center">
+        {{ isEditing ? 'Editar categoría' : 'Crear categoría' }}
+      </h2>
+    </ion-card-header>
+
+    <ion-card-content>
+      <br>
+      <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+      <form
+        class="form-container"
+        (ngSubmit)="saveCategory()"
+        #categoryForm="ngForm"
+        *ngIf="!isLoading"
+      >
+        <ion-item class="custom-item">
+          <ion-label position="floating">{{titleInput}} <span class="ion-text-warning">*</span></ion-label>
+          <ion-input
+            [(ngModel)]="category.category"
+            name="category"
+            required
+            #categoryInput="ngModel"
+          ></ion-input>
+          <ion-note color="danger" *ngIf="categoryInput.invalid && categoryInput.touched">
+            {{messageSelect}}
+           </ion-note>
+        </ion-item>
+
+        <ion-button
+          size="small"
+          expand="full"
+          type="submit"
+          color="primary"
+          class="custom-button"
+          [disabled]="categoryForm.invalid || isSaving"
+        >
+          Guardar
+        </ion-button><br>
+        <h3 class="ion-text-center" *ngIf="message !== ''">
+          {{ message }}
+        </h3>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

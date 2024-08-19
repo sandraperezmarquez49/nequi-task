@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "679389094762",
+    "project_id": "nequi-task",
+    "storage_bucket": "nequi-task.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679389094762:android:bfa277c50a10b541b77b13",
+        "android_client_info": {
+          "package_name": "com.nequi.nequitasktest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh2TcO-9SFpybjzwNTzrT-Ty3EN55x-pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

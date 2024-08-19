@@ -1,0 +1,57 @@
+<ion-content>
+  <ion-header class="ion-no-border">
+    <ion-toolbar color="translucent">
+      <ion-buttons slot="end">
+        <ion-select placeholder="Filtrar por categoría" (ionChange)="filterTasksByCategory($event.detail.value)" interface="popover" class="category-filter">
+          <ion-select-option value="null">{{titleCategories}}</ion-select-option>
+          <ion-select-option *ngFor="let category of categories" [value]="category.id">
+            {{ category.category }}
+          </ion-select-option>
+        </ion-select>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header><br>
+      
+  <ion-card class="page-card">
+    <ion-card-header class="custom-header">
+      <h2 class="ion-text-center">{{ title }}</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <br>
+      <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+      <h3 class="ion-text-center" *ngIf="!isLoading && filteredTasks.length < 1">{{ message }}</h3>
+      <ion-list lines="none" *ngIf="!isLoading">
+        <ion-item *ngFor="let task of filteredTasks" class="list-item">
+          <ion-label class="list-label">
+            <h2>{{ task.title }}</h2>
+            <p><strong>Categoria:</strong> {{ task.categoryName }}</p> 
+            <p><strong>Descripción:</strong> {{ task.description | slice:0:20 }}<span *ngIf="task.description.length > 20">...</span>
+              <a *ngIf="task.description.length > 20" (click)="task.expanded = !task.expanded">
+                {{ task.expanded ? 'Leer menos' : 'Leer más' }}
+              </a>
+              <span *ngIf="task.expanded">{{ task.description | slice:20 }}</span>
+            </p>
+            <!-- Mostrar la sección del toggle solo si showTaskToggle es verdadero -->
+            <div class="task-status-container" *ngIf="showTaskToggle; else noTaskToggle">
+              <ion-label class="task-status-label">{{ task.completed ? 'Estado de la tarea: Completada' : 'Estado de la tarea: Pendiente' }}</ion-label>
+              <ion-toggle slot="end" [(ngModel)]="task.completed" (ionChange)="toggleTaskCompletion(task)" class="task-toggle"></ion-toggle>
+            </div>
+            <!-- Mostrar "Estado de la tarea: NO disponible" si showTaskToggle es falso -->
+            <ng-template #noTaskToggle>
+              <ion-label class="task-status-label">Estado de la tarea: NO disponible</ion-label>
+            </ng-template>
+          </ion-label>
+          <ion-button fill="clear" color="danger" (click)="deleteTask(task)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-fab vertical="bottom" class="fab-button" horizontal="end" slot="fixed" [routerLink]="['/task-form']">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,10 @@
+{
+  "name": "nequiTask",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {
+      "enabled": false
+    }
+  },
+  "type": "angular"
+}

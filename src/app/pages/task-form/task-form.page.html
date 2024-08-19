@@ -1,0 +1,57 @@
+<ion-content>
+  <div class="pd-t-10"></div>
+  <ion-card class="page-card">
+    <ion-card-header class="custom-header">
+      <h2 class="ion-text-center">{{title}}</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+        <ion-item>
+          <ion-label position="floating">Título <span class="ion-text-warning">*</span></ion-label><br>
+          <ion-input formControlName="title" type="text"></ion-input>
+          <ion-note color="danger" *ngIf="taskForm.get('title')?.hasError('required') && taskForm.get('title')?.touched">
+            El título es obligatorio.
+          </ion-note>
+          <ion-note color="danger" *ngIf="taskForm.get('title')?.hasError('maxlength') && taskForm.get('title')?.touched">
+            El título no puede exceder 50 caracteres.
+          </ion-note>
+          
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Categoría <span class="ion-text-warning">*</span></ion-label><br>
+          <ion-select formControlName="categoryId">
+            <ion-select-option *ngFor="let category of categories" [value]="category.id">
+              {{ category.category }}
+            </ion-select-option>
+          </ion-select>
+          <ion-note color="danger" *ngIf="taskForm.get('categoryId')?.hasError('required') && taskForm.get('categoryId')?.touched">
+            La categoría es obligatoria.
+          </ion-note>  
+        </ion-item>
+       
+        <ion-item>
+          <ion-label position="floating">Descripción <span class="ion-text-warning">*</span></ion-label><br>
+          <ion-textarea formControlName="description" maxlength="1000"></ion-textarea>
+          <ion-note slot="end">{{ taskForm.get('description')?.value?.length || 0 }}/1000</ion-note>
+          <ion-note color="danger" *ngIf="taskForm.get('description')?.hasError('maxlength') && taskForm.get('description')?.touched">
+            La descripción no puede exceder 1000 caracteres.
+          </ion-note>
+          <ion-note color="danger" *ngIf="taskForm.get('description')?.hasError('required') && taskForm.get('description')?.touched">
+            La descripción es obligatoria.
+          </ion-note>
+        </ion-item>
+
+        <br>
+        <ion-button 
+          size="small"
+          expand="full" 
+          type="submit" 
+          [disabled]="taskForm.invalid">
+          Guardar
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

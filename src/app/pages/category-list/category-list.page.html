@@ -1,0 +1,36 @@
+<ion-content>
+  <div class="pd-t-10"></div>
+  <ion-card class="page-card">
+    <ion-card-header class="custom-header">
+          <h2 class="ion-text-center">
+            {{ title }}
+          </h2>
+    </ion-card-header>
+
+    <ion-card-content>
+      <br>
+      <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+      <h3 class="ion-text-center" *ngIf="!isLoading && categories.length < 1">
+        {{ message }}
+      </h3>
+      <ion-list lines="none" *ngIf="!isLoading">
+        <ion-item *ngFor="let category of categories" class="list-item">
+          <ion-icon name="ellipse" class="list-icon"></ion-icon> 
+          <ion-label class="list-label">{{ category.category }}</ion-label>
+          <ion-button fill="clear" color="secondary" (click)="editCategory(category.id)">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger" (click)="deleteCategory(category.id)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab vertical="bottom" class="fab-button" horizontal="end" slot="fixed" (click)="editCategory('new')">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
